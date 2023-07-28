@@ -13,14 +13,22 @@ namespace StoreApp.Controllers
             _context = context;
         }
 
-        public IEnumerable<Product> Index()
+        public IActionResult Index()
         {
             //var context = new RepositoryContext(
             //    new DbContextOptionsBuilder<RepositoryContext>()
             //    .UseSqlite("Data Source = C:\\MVC\\ProductDb.db")
             //    .Options
             //    );
-            return _context.Products;
+
+            var model = _context.Products.ToList();
+            return View(model);
+        }
+
+        public IActionResult Get(int id)
+        {
+            Product product = _context.Products.First(x => x.ProductId.Equals(id));
+            return View(product);
         }
     }
 }
