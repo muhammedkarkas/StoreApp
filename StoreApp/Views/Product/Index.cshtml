@@ -4,18 +4,22 @@
 
 @model List<Product>
 
-@section Footer{
+@*@section Footer{
     <div>
         Only for index page
     </div>
-}
+    <hr />
+}*@
 
 @foreach(Product item in Model){
-    <div>
+
+    <partial name="_ProductCard" model="@item"></partial>
+
+    @*<div>
         <h3>@item.ProductName</h3>
         <p>@item.Price</p>
         <p>
             <a href="/Product/Get/@item.ProductId">Get Details</a>
         </p>
-    </div>
+    </div>*@
 }

@@ -5,10 +5,18 @@
 
 <h3>@Model.ProductName</h3>
 <p>@Model.Price</p>
-<a href="/Product">Products</a>
+<hr />
+<div class="btn-group">
+    <a class="btn btn-primary" asp-controller="Home" asp-action="Index">
+        <i class="fa-solid fa-house"></i>
+        Home</a>
+    <a class="btn btn-outline-primary" asp-controller="Product" asp-action="Index">Products</a>
+</div>
 
-@section Header{
+
+@*@section Header{
     <div>
         Header for only get page
     </div>
-}
+    <hr />
+}*@

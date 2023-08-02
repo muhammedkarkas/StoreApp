@@ -22,6 +22,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+//Statik dosyalarý kullanmamýzý saðlayan konfigürasyon ifadesidir.(wwwrooot)
 app.UseStaticFiles();
 
 app.UseRouting();
