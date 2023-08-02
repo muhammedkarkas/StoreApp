@@ -1,5 +1,14 @@
-﻿@model Product
+﻿@{
+    Layout = "_Layout";
+}
+@model Product
 
 <h3>@Model.ProductName</h3>
 <p>@Model.Price</p>
 <a href="/Product">Products</a>
+
+@section Header{
+    <div>
+        Header for only get page
+    </div>
+}
