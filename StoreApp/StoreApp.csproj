@@ -35,4 +35,8 @@
     <None Include="Views\Shared\_Navbar.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Entities\Entities.csproj" />
+  </ItemGroup>
+
 </Project>
