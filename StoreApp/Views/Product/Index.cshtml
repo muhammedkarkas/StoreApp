@@ -11,15 +11,17 @@
     <hr />
 }*@
 
-@foreach(Product item in Model){
-
+<div class="row my-3">
+@foreach(Product item in Model){    
+     
     <partial name="_ProductCard" model="@item"></partial>
+}
+</div>
 
-    @*<div>
+@*<div>
         <h3>@item.ProductName</h3>
         <p>@item.Price</p>
         <p>
             <a href="/Product/Get/@item.ProductId">Get Details</a>
         </p>
     </div>*@
-}
