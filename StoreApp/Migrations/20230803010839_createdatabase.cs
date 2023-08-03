@@ -4,7 +4,7 @@
 
 namespace StoreApp.Migrations
 {
-    public partial class initialcreate : Migration
+    public partial class createdatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
