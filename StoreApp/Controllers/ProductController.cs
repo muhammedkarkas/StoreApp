@@ -1,17 +1,25 @@
 ﻿using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using Repositories;
+using Repositories.Contracts;
 
 namespace StoreApp.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly RepositoryContext _context;
+        //private readonly RepositoryContext _context;
+        //IOC tarafından manager çözümlenecek ve manager içerisinde context,productrepository gibi tüm parametreler yer almaktadır.
+        private readonly IRepositoryManager _manager;
 
-        public ProductController(RepositoryContext context)
+        public ProductController(IRepositoryManager manager)
         {
-            _context = context;
+            _manager = manager;
         }
+
+        //public ProductController(RepositoryContext context)
+        //{
+        //    _context = context;
+        //}
 
         public IActionResult Index()
         {
@@ -21,14 +29,17 @@ namespace StoreApp.Controllers
             //    .Options
             //    );
 
-            var model = _context.Products.ToList();
+            //Kayıtların elde edilmesi
+            var model = _manager.Product.GetAllProducts(false); 
             return View(model);
         }
 
         public IActionResult Get(int id)
         {
-            Product product = _context.Products.First(x => x.ProductId.Equals(id));
-            return View(product);
+            //Product product = _context.Products.First(x => x.ProductId.Equals(id));
+            //return View(product);
+            var model = _manager.Product.GetOneProduct(id,false);
+            return View(model);
         }
     }
 }

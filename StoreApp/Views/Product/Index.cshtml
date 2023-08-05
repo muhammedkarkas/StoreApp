@@ -2,7 +2,7 @@
     Layout = "_Layout";
 }
 
-@model List<Product>
+@model IQueryable<Product>
 
 @*@section Footer{
     <div>
@@ -21,7 +21,7 @@
 @*<div>
         <h3>@item.ProductName</h3>
         <p>@item.Price</p>
-        <p>
+        <p>  
             <a href="/Product/Get/@item.ProductId">Get Details</a>
         </p>
     </div>*@
