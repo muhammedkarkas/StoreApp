@@ -14,6 +14,16 @@ namespace Repositories
         {
         }
 
+        public void CreateOneProduct(Product product)
+        {
+            throw new NotImplementedException();
+        }
+
+        //Gelen product ifadesi create methoduna direkt olarak parametre olarak girildi.
+        public void CreateProduct(Product product) => Create(product);
+
+        public void DeleteOneProduct(Product product) => Remove(product);
+
         public IQueryable<Product> GetAllProducts(bool trackChanges) => FindAll(trackChanges);
 
         public Product? GetOneProduct(int id, bool trackChanges)
