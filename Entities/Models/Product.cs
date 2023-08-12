@@ -11,5 +11,9 @@ namespace Entities.Models
 
         [Required(ErrorMessage = "Price is required.")]
         public decimal Price { get; set; }
+
+        //Her producta ait bir kategori bilgisi olacak
+        public int? CategoryId { get; set; }  //Foreign Key
+        public Category? Category { get; set; }  //Navigation Property
     }
 }
