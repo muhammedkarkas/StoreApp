@@ -1,4 +1,6 @@
-﻿using Entities.Models;
+﻿using AutoMapper;
+using Entities.Dtos;
+using Entities.Models;
 using Repositories.Contracts;
 using Services.Contracts;
 using System;
@@ -14,15 +16,28 @@ namespace Services
         // İlgili Concreate ifadeyi uygulayacak ifade edecek yapı manager classıdır.
         //Repolarda tanımlı olan özellikler kullanılmak istenecek. Bunu yaparken bir manager nesnesinden yararlanacağız.
         private readonly IRepositoryManager _manager;
+        private readonly IMapper _mapper;
 
-        public ProductManager(IRepositoryManager manager)
+        public ProductManager(IRepositoryManager manager, IMapper mapper)
         {
             _manager = manager;
+            _mapper = mapper;
         }
 
-        public void CreateProduct(Product product)
+        public void CreateProduct(ProductsDtoForInsertion productDto)
         {
             //Manager üzerinden producta gidildi ve ilgili product nesnesi verildi daha sonra save methodu ile değişiklikler kaydedildi.
+
+
+            //Product product = new Product()
+            //{
+            //    ProductName = productDto.ProductName,
+            //    Price = productDto.Price,
+            //    CategoryId = productDto.CategoryId,
+            //};
+
+            //Product dönecek ve producta kaynaklık eden ise productdto olacaktır.
+            Product product = _mapper.Map<Product>(productDto);
             _manager.Product.Create(product);
             _manager.Save();
         }
