@@ -4,7 +4,7 @@
 
 namespace StoreApp.Migrations
 {
-    public partial class initialcreate : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,6 +29,8 @@ namespace StoreApp.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     ProductName = table.Column<string>(type: "TEXT", nullable: false),
                     Price = table.Column<decimal>(type: "TEXT", nullable: false),
+                    Summary = table.Column<string>(type: "TEXT", nullable: true),
+                    ImageUrl = table.Column<string>(type: "TEXT", nullable: true),
                     CategoryId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
@@ -52,39 +54,44 @@ namespace StoreApp.Migrations
                 values: new object[] { 2, "Electronic" });
 
             migrationBuilder.InsertData(
-                table: "Products",
-                columns: new[] { "ProductId", "CategoryId", "Price", "ProductName" },
-                values: new object[] { 1, 2, 27000m, "Computer" });
+                table: "Categories",
+                columns: new[] { "CategoryId", "CategoryName" },
+                values: new object[] { 3, "SmartPhone" });
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "ProductId", "CategoryId", "Price", "ProductName" },
-                values: new object[] { 2, 2, 32000m, "Notebook" });
+                columns: new[] { "ProductId", "CategoryId", "ImageUrl", "Price", "ProductName", "Summary" },
+                values: new object[] { 1, 2, "/images/1.jpeg", 27000m, "Computer", "" });
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "ProductId", "CategoryId", "Price", "ProductName" },
-                values: new object[] { 3, 2, 11500m, "Phone" });
+                columns: new[] { "ProductId", "CategoryId", "ImageUrl", "Price", "ProductName", "Summary" },
+                values: new object[] { 2, 2, "/images/2.jpeg", 32000m, "Notebook", "" });
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "ProductId", "CategoryId", "Price", "ProductName" },
-                values: new object[] { 4, 2, 21000m, "Tablet" });
+                columns: new[] { "ProductId", "CategoryId", "ImageUrl", "Price", "ProductName", "Summary" },
+                values: new object[] { 3, 2, "/images/3.jpeg", 11500m, "Phone", "" });
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "ProductId", "CategoryId", "Price", "ProductName" },
-                values: new object[] { 5, 2, 12000m, "İpad" });
+                columns: new[] { "ProductId", "CategoryId", "ImageUrl", "Price", "ProductName", "Summary" },
+                values: new object[] { 4, 2, "/images/4.jpeg", 21000m, "Tablet", "" });
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "ProductId", "CategoryId", "Price", "ProductName" },
-                values: new object[] { 6, 1, 1700m, "History" });
+                columns: new[] { "ProductId", "CategoryId", "ImageUrl", "Price", "ProductName", "Summary" },
+                values: new object[] { 5, 2, "/images/5.jpeg", 12000m, "İpad", "" });
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "ProductId", "CategoryId", "Price", "ProductName" },
-                values: new object[] { 7, 1, 2400m, "Hamlet" });
+                columns: new[] { "ProductId", "CategoryId", "ImageUrl", "Price", "ProductName", "Summary" },
+                values: new object[] { 6, 1, "/images/6.jpeg", 1700m, "History", "" });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "ProductId", "CategoryId", "ImageUrl", "Price", "ProductName", "Summary" },
+                values: new object[] { 7, 1, "/images/7.jpeg", 2400m, "Hamlet", "" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryId",
