@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entities.Dtos
 {
-    public record ProductsDtoForInsertion : ProductDto
+    public record ProductDtoForInsertion : ProductDto
     {
         //Kalıtımla ilgili ifadeler devralındı.
     }

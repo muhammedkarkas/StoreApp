@@ -24,7 +24,7 @@ namespace Services
             _mapper = mapper;
         }
 
-        public void CreateProduct(ProductsDtoForInsertion productDto)
+        public void CreateProduct(ProductDtoForInsertion productDto)
         {
             //Manager üzerinden producta gidildi ve ilgili product nesnesi verildi daha sonra save methodu ile değişiklikler kaydedildi.
 
@@ -70,11 +70,31 @@ namespace Services
             return product;
         }
 
-        public void UpdateOneProduct(Product product)
+        public ProductDtoForUpdate GetOneProductForUpdate(int id, bool trackChanges)
         {
-            var entity = _manager.Product.GetOneProduct(product.ProductId,true);
-            entity.ProductName = product.ProductName;
-            entity.Price = product.Price;
+            //İlgili product nesnesi elde edilecek ve productdtoforupdate türünden bir nesne istenecek.İstenilen nesneye product nesnesi kaynaklık edecek. Map bize istediğimiz türdeki nesneyi verecek.Elde edilen nesne return edilecek.
+            var product = GetOneProduct(id, trackChanges);
+            var productDto = _mapper.Map<ProductDtoForUpdate>(product);
+            return productDto;
+        } 
+
+        public void UpdateOneProduct(ProductDtoForUpdate productDto)
+        {
+            //Varlık veritabanından getirilmektedir ve varlık true değeri verilerek izlenmektedir.
+            //var entity = _manager.Product.GetOneProduct(productDto.ProductId,true);
+            //Varlığın category, name ve price değerleri değiştirilmektedir.
+
+            /*
+            entity.ProductName = productDto.ProductName;
+            entity.Price = productDto.Price;
+            entity.CategoryId = productDto.CategoryId;
+            */
+
+            //Mapleme işlemi yapılabilir. Örneğin map ile product verip productdto kaynak olarak gösterilirse eğer bu durumda varlık yeni bir referans alacağı için EfCore bu varlığı izlemez ve doğal olarak repo üzerinde bir update methodu çağırmamız gerekir.Manager üzerinde bir update işlemine ihtiyacımız olur.
+            var entity = _mapper.Map<Product>(productDto); //Yeni referans geleceği için izleme olmaz.
+            _manager.Product.UpdateOneProduct(entity);
+
+            //varlığın izlenmesine bağlı olarak değişiklikler manager nesnesi üzerinden veritabanına kayıt edilmektedir.
             _manager.Save();
         }
     }

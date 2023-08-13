@@ -26,15 +26,21 @@ namespace StoreApp.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
-            ViewBag.Categories = new SelectList(_manager.CategoryService.GetAllCategories(false), "CategoryId", "CategoryName", "1");
+            ViewBag.Categories = GetCategoriesSelectList();
 
             return View();
+        }
+
+        //Categories nesnelerini her yerde tek tek metot içerisinde tanımlamak yerine direkt olarak bir metot içerisinde tanımlayıp ilgili yerler içerisinde metodu kullanmak sistemin daha yalın ve sürdürülebilir olmasına katkı sağlamaktadır.
+        private SelectList GetCategoriesSelectList()
+        {
+            return new SelectList(_manager.CategoryService.GetAllCategories(false), "CategoryId", "CategoryName", "1");
         }
 
         //İkinci attribute formun doğrulanması için girildi.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([FromForm]ProductsDtoForInsertion productDto)
+        public IActionResult Create([FromForm]ProductDtoForInsertion productDto)
         {
             //Eğer model geçerli ise
             if(ModelState.IsValid)
@@ -47,13 +53,14 @@ namespace StoreApp.Areas.Admin.Controllers
 
         public IActionResult Update(int id)
         {
-            var model = _manager.ProductService.GetOneProduct(id,false);
+            ViewBag.Categories = GetCategoriesSelectList();
+            var model = _manager.ProductService.GetOneProductForUpdate(id,false);
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Update(Product product)
+        public IActionResult Update(ProductDtoForUpdate product)
         {
             if(ModelState.IsValid)
             {

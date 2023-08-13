@@ -9,7 +9,14 @@ namespace StoreApp.Infrastructe.Mapper
         public MappingProfile()
         {
             //Kaynak ifade ile nihai olarak product elde ediyoruz.
-            CreateMap<ProductsDtoForInsertion, Product>();
+            CreateMap<ProductDtoForInsertion, Product>();
+
+            //Update işleminde her iki tür mapleme işlemine de gerek olmaktadır.
+            CreateMap<ProductDtoForUpdate, Product>();
+
+            //Update işleminde üründen de nesneye gitmemiz gerekmektedir.
+            CreateMap<Product, ProductDtoForUpdate>();
+
         }
     }
 }
