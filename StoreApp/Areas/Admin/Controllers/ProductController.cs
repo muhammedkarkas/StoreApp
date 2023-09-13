@@ -33,26 +33,27 @@ namespace StoreApp.Areas.Admin.Controllers
         public IActionResult Create()
         {
             ViewBag.Categories = GetCategoriesSelectList();
-
             return View();
         }
 
-        //İkinci attribute formun doğrulanması için girildi.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]     //İkinci attribute formun doğrulanması için girildi. Asenkron metot
         public async Task<IActionResult> Create([FromForm]ProductDtoForInsertion productDto, IFormFile file)  
         {
             //Eğer model geçerli ise
             if(ModelState.IsValid)
             {
                 //File Operation
-                //Fiziksel olarak çalışılan path tanımının yapılması gerekmektedir.
+                //Fiziksel olarak çalışılan path tanımının yapılması gerekmektedir. Path dosyanın fiziksel olarak yolunu göstermektedir.
                 string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", file.FileName);
 
-                using (var stream = new FileStream(path, FileMode.Create))
+                //süslü parantezden çıkınca işlemler sistem tarafından otomatik olarak kaldırılmaktadır.Sistem kaynakları serbest bırakılır.
+                using (var stream = new FileStream(path, FileMode.Create)) //namespace hemen üzerinde ilgili paketler dahil edilmek için kullanılır
                 {
+                    //asenkron olarak bu işlem gerçekleşecek ve dosya sunucuya yüklenecek.
                     await file.CopyToAsync(stream);
                 }
+                //ProductDto içerisinde ImageUrl alanı set edilmektedir.
                 productDto.ImageUrl = String.Concat("/images/", file.FileName);
 
                 _manager.ProductService.CreateProduct(productDto);
@@ -71,11 +72,24 @@ namespace StoreApp.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Update(ProductDtoForUpdate product)
+        public async Task<IActionResult> Update(ProductDtoForUpdate productDto, IFormFile file)
         {
             if(ModelState.IsValid)
             {
-                _manager.ProductService.UpdateOneProduct(product);
+                //File Operation
+                //Fiziksel olarak çalışılan path tanımının yapılması gerekmektedir. Path dosyanın fiziksel olarak yolunu göstermektedir.
+                string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", file.FileName);
+
+                //süslü parantezden çıkınca işlemler sistem tarafından otomatik olarak kaldırılmaktadır.Sistem kaynakları serbest bırakılır.
+                using (var stream = new FileStream(path, FileMode.Create)) //namespace hemen üzerinde ilgili paketler dahil edilmek için kullanılır
+                {
+                    //asenkron olarak bu işlem gerçekleşecek ve dosya sunucuya yüklenecek.
+                    await file.CopyToAsync(stream);
+                }
+                //ProductDto içerisinde ImageUrl alanı set edilmektedir.
+                productDto.ImageUrl = String.Concat("/images/", file.FileName);
+
+                _manager.ProductService.UpdateOneProduct(productDto);
                 return RedirectToAction("Index");
             }
             
