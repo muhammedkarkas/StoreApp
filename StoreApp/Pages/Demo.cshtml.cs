@@ -16,6 +16,8 @@ namespace StoreApp.Pages
         {
             HttpContext.Session.SetString("names",name);
         }
-
+        
+        //HttpContext.Session dediðimizde burda tanýmlanan metotlarda kullanýlabilir olacaktýr.
+        //Metotlarýn kullanýmý için ilgili yapý içerisine extensionun using ifadesi olarak eklenmesi gerekmektedir.    
     }
 }

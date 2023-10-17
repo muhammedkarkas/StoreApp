@@ -18,7 +18,15 @@ builder.Services.AddDbContext<RepositoryContext>(options =>
 
 });
 
+//Middleware inþasý gerçekleþtirildi 
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.Cookie.Name = "StoreApp.Session";
+    options.IdleTimeout = TimeSpan.FromMinutes(10);
+});
 
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
@@ -28,14 +36,12 @@ builder.Services.AddScoped<IServiceManager, ServiceManager>();
 builder.Services.AddScoped<IProductService, ProductManager>();
 builder.Services.AddScoped<ICategoryService, CategoryManager>();
 
-//Singleton nesne üretimi tek bir nesne üzerinden iþlem yapýlacaðý için her tarayýcýda ayný sepet gözükür. AddScopped yapýlmalý ki her kullanýcý için ayrý bir nesne üretimi gerçekleþtirilsin.
-builder.Services.AddSingleton<Cart>();
+//Singleton nesne üretimi tek bir nesne üzerinden iþlem yapýlacaðý için her tarayýcýda ayný sepet gözükür. AddScopped yapýlmalý ki her kullanýcý için ayrý bir nesne üretimi gerçekleþtirilsin. Session bilgileri kullanýcýya ve taracýya özeldir. 
+// Yapý gereði her defasýnda sepete bir tane ürün eklendiðinde sepet güncellenmektedir.
+builder.Services.AddScoped<Cart>();
 
 builder.Services.AddAutoMapper(typeof(Program));
 
-//Middleware inþasý gerçekleþtirildi 
-builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession();
 
 var app = builder.Build();
 
