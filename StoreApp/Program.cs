@@ -4,6 +4,7 @@ using Repositories;
 using Repositories.Contracts;
 using Services;
 using Services.Contracts;
+using StoreApp.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,7 +39,7 @@ builder.Services.AddScoped<ICategoryService, CategoryManager>();
 
 //Singleton nesne üretimi tek bir nesne üzerinden iþlem yapýlacaðý için her tarayýcýda ayný sepet gözükür. AddScopped yapýlmalý ki her kullanýcý için ayrý bir nesne üretimi gerçekleþtirilsin. Session bilgileri kullanýcýya ve taracýya özeldir. 
 // Yapý gereði her defasýnda sepete bir tane ürün eklendiðinde sepet güncellenmektedir.
-builder.Services.AddScoped<Cart>();
+builder.Services.AddScoped<Cart>(c => SessionCart.GetCart(c));
 
 builder.Services.AddAutoMapper(typeof(Program));
 
