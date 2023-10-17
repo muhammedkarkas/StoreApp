@@ -18,9 +18,7 @@ builder.Services.AddDbContext<RepositoryContext>(options =>
 
 });
 
-//Middleware inþasý gerçekleþtirildi 
-builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession();
+
 
 builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
@@ -34,6 +32,10 @@ builder.Services.AddScoped<ICategoryService, CategoryManager>();
 builder.Services.AddSingleton<Cart>();
 
 builder.Services.AddAutoMapper(typeof(Program));
+
+//Middleware inþasý gerçekleþtirildi 
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession();
 
 var app = builder.Build();
 
