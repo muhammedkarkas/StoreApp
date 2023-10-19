@@ -11,5 +11,6 @@ namespace Services.Contracts
         //Tanımlamalar, Kullanıcı yetkilendirme gibi işlemler manager içerisinde yapılabilir.
         IProductService ProductService { get; }
         ICategoryService CategoryService { get; }
+        IOrderService OrderService { get; }
     }
 }

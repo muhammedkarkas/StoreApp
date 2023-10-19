@@ -11,16 +11,20 @@ namespace Services
     {
         private readonly IProductService _productService;
         private readonly ICategoryService _categoryService;
+        private readonly IOrderService _orderService;
 
-        public ServiceManager(IProductService productService, ICategoryService categoryService)
+        public ServiceManager(IProductService productService, ICategoryService categoryService, IOrderService orderService)
         {
             _productService = productService;
             _categoryService = categoryService;
+            _orderService = orderService;
         }
 
         // Constructor'dan çıkıldığı anda productservice ve categoryservice'in newlenmiş halleri elimizde olacak. Hangi nesne istenirse isteğe göre aşağıdaki gibi dönüş yapılacaktır.
 
         public IProductService ProductService => _productService;
         public ICategoryService CategoryService => _categoryService;
+
+        public IOrderService OrderService => _orderService;
     }
 }
