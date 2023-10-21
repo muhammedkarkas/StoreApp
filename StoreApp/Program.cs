@@ -9,7 +9,7 @@ builder.Services.AddRazorPages();
 //ServiceExtension
 builder.Services.ConfigureDbContext(builder.Configuration);
 
-//Middleware inþasý gerçekleþtirildi 
+//Middleware inþasý gerçekleþtirildi
 builder.Services.ConfigureSession();
 
 builder.Services.ConfigureRepositoryRegistration();
@@ -53,7 +53,7 @@ app.UseEndpoints(endpoints =>
     endpoints.MapRazorPages();
 });
 
-
+app.ConfigureAndCheckMigration();
     
 
 app.Run();

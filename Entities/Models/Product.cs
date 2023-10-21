@@ -13,5 +13,6 @@ namespace Entities.Models
         //Her producta ait bir kategori bilgisi olacak
         public int? CategoryId { get; set; }  //Foreign Key
         public Category? Category { get; set; }  //Navigation Property
+        public bool ShowCase { get; set; }
     }
 }
