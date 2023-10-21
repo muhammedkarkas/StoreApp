@@ -1,10 +1,4 @@
-using Entities.Models;
-using Microsoft.EntityFrameworkCore;
-using Repositories;
-using Repositories.Contracts;
-using Services;
-using Services.Contracts;
-using StoreApp.Models;
+using StoreApp.Infrastructe.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,40 +6,19 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
-builder.Services.AddDbContext<RepositoryContext>(options =>
-{
-    options.UseSqlite(builder.Configuration.GetConnectionString("sqlconnection"),
-        b=> b.MigrationsAssembly("StoreApp"));
-
-});
+//ServiceExtension
+builder.Services.ConfigureDbContext(builder.Configuration);
 
 //Middleware inþasý gerçekleþtirildi 
-builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession(options =>
-{
-    options.Cookie.Name = "StoreApp.Session";
-    options.IdleTimeout = TimeSpan.FromMinutes(10);
-});
+builder.Services.ConfigureSession();
 
-builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.ConfigureRepositoryRegistration();
 
-builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-
-builder.Services.AddScoped<IServiceManager, ServiceManager>();
-builder.Services.AddScoped<IProductService, ProductManager>();
-builder.Services.AddScoped<ICategoryService, CategoryManager>();
-builder.Services.AddScoped<IOrderService, OrderManager>();
-
+builder.Services.ConfigureServiceRegistration();
 
 //Singleton nesne üretimi tek bir nesne üzerinden iþlem yapýlacaðý için her tarayýcýda ayný sepet gözükür. AddScopped yapýlmalý ki her kullanýcý için ayrý bir nesne üretimi gerçekleþtirilsin. Session bilgileri kullanýcýya ve taracýya özeldir. 
 // Yapý gereði her defasýnda sepete bir tane ürün eklendiðinde sepet güncellenmektedir.
-builder.Services.AddScoped<Cart>(c => SessionCart.GetCart(c));
-
 builder.Services.AddAutoMapper(typeof(Program));
-
 
 var app = builder.Build();
 
