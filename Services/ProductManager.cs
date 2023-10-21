@@ -76,7 +76,13 @@ namespace Services
             var product = GetOneProduct(id, trackChanges);
             var productDto = _mapper.Map<ProductDtoForUpdate>(product);
             return productDto;
-        } 
+        }
+
+        public IEnumerable<Product> GetShowCaseProducts(bool trackChanges)
+        {
+            var products = _manager.Product.GetShowCaseProducts(trackChanges);
+            return products;
+        }
 
         public void UpdateOneProduct(ProductDtoForUpdate productDto)
         {
