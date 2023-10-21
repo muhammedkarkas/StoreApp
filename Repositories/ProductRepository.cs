@@ -2,6 +2,7 @@
 using Entities.RequestParameters;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Contracts;
+using Repositories.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,19 +11,16 @@ using System.Threading.Tasks;
 
 namespace Repositories
 {
-    public class ProductRepository : RepositoryBase<Product>, IProductRepository
+    public sealed class ProductRepository : RepositoryBase<Product>, IProductRepository
     {
+        //sealed class classın artık kalıtılamayacağını ifade etmektedir.Classın son versiyonunu ifade etmektedir. 
         public ProductRepository(RepositoryContext context) : base(context)
         {
-        }
 
-        public void CreateOneProduct(Product product)
-        {
-            throw new NotImplementedException();
         }
 
         //Gelen product ifadesi create methoduna direkt olarak parametre olarak girildi.
-        public void CreateProduct(Product product) => Create(product);
+        public void CreateOneProduct(Product product) => Create(product);
 
         public void DeleteOneProduct(Product product) => Remove(product);
 
@@ -30,9 +28,10 @@ namespace Repositories
 
         public IQueryable<Product> GetAllProductsWithDetails(ProductRequestParameters p)
         {
-            return p is null
-                ? _context.Products.Include(prd => prd.Category)
-                : _context.Products.Include(prd => prd.Category).Where(prd => prd.CategoryId.Equals(p.CategoryId));
+            return _context
+                .Products
+                .FilteredByCategoryId(p.CategoryId)
+                .FilteredBySearchTerm(p.SearchTerm);
         }
 
         public Product? GetOneProduct(int id, bool trackChanges)

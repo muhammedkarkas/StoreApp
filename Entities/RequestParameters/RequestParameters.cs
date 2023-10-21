@@ -9,7 +9,7 @@ namespace Entities.RequestParameters
     public abstract class RequestParameters
     {
         //abstract bir class yarım bırakılmış bir class gibidir. Bu classın new lenmesi mümkün değildir. Fakat kalıtımla bu class devralındığında class içerisindeki bütün üyeler ilgili classa aktarılır ve kalıtılan class newlenebilir.
-
+        public String? SearchTerm { get; set; }
         
     }
 }
