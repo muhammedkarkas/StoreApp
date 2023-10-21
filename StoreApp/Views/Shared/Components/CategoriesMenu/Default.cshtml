@@ -5,7 +5,7 @@
         @foreach(var item in Model)
         {
             <li class="list-group-item">
-                @item.CategoryName
+                <a asp-action="Index" asp-route-categoryId="@item.CategoryId">@item.CategoryName</a>
             </li>
         }
     </ul>

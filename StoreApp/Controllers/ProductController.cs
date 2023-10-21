@@ -1,4 +1,5 @@
 ﻿using Entities.Models;
+using Entities.RequestParameters;
 using Microsoft.AspNetCore.Mvc;
 using Repositories;
 using Repositories.Contracts;
@@ -23,7 +24,7 @@ namespace StoreApp.Controllers
         //    _context = context;
         //}
 
-        public IActionResult Index()
+        public IActionResult Index(ProductRequestParameters p)
         {
             //var context = new RepositoryContext(
             //    new DbContextOptionsBuilder<RepositoryContext>()
@@ -32,7 +33,7 @@ namespace StoreApp.Controllers
             //    );
 
             //Kayıtların elde edilmesi
-            var model = _manager.ProductService.GetAllProducts(false);
+            var model = _manager.ProductService.GetAllProductsWithDetails(p);
             return View(model);
         }
 

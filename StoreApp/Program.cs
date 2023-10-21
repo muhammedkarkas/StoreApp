@@ -11,10 +11,9 @@ builder.Services.ConfigureDbContext(builder.Configuration);
 
 //Middleware inþasý gerçekleþtirildi
 builder.Services.ConfigureSession();
-
 builder.Services.ConfigureRepositoryRegistration();
-
 builder.Services.ConfigureServiceRegistration();
+builder.Services.ConfigureRouting();
 
 //Singleton nesne üretimi tek bir nesne üzerinden iþlem yapýlacaðý için her tarayýcýda ayný sepet gözükür. AddScopped yapýlmalý ki her kullanýcý için ayrý bir nesne üretimi gerçekleþtirilsin. Session bilgileri kullanýcýya ve taracýya özeldir. 
 // Yapý gereði her defasýnda sepete bir tane ürün eklendiðinde sepet güncellenmektedir.
