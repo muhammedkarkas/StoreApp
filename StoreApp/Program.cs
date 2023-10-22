@@ -1,4 +1,4 @@
-using StoreApp.Infrastructe.Extensions;
+using StoreApp.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +8,7 @@ builder.Services.AddRazorPages();
 
 //ServiceExtension
 builder.Services.ConfigureDbContext(builder.Configuration);
+builder.Services.ConfigureIdentity();
 
 //Middleware inþasý gerçekleþtirildi
 builder.Services.ConfigureSession();

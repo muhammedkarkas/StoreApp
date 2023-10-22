@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Text.Json;
 
-namespace StoreApp.Infrastructe.Extensions
+namespace StoreApp.Infrastructure.Extensions
 {
     public static class SessionExtension
     {

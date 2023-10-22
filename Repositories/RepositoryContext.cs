@@ -1,11 +1,13 @@
 ﻿using Entities.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Config;
 using System.Reflection;
 
 namespace Repositories
 {
-    public class RepositoryContext : DbContext
+    public class RepositoryContext : IdentityDbContext<IdentityUser>
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -29,6 +31,9 @@ namespace Repositories
         }
     }
 }
+
+
+//Identity yapısı sistem içerisine eklendiğinde DbContext yapısı yerine IdentityDbContext yapısını kullanarak projeyi geliştirmeye devam ediyoruz.
 
 //Config dosyası içerisine taşındı
 //modelBuilder.Entity<Product>()
