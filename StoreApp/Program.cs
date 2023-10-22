@@ -54,6 +54,7 @@ app.UseEndpoints(endpoints =>
 });
 
 app.ConfigureAndCheckMigration();
+app.ConfigureDefaultAdminUser();
     
 
 app.Run();
