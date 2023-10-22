@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Repositories;
 using Repositories.Contracts;
 using Services.Contracts;
+using StoreApp.Models;
 
 namespace StoreApp.Controllers
 {
@@ -33,8 +34,18 @@ namespace StoreApp.Controllers
             //    );
 
             //Kayıtların elde edilmesi
-            var model = _manager.ProductService.GetAllProductsWithDetails(p);
-            return View(model);
+            var products = _manager.ProductService.GetAllProductsWithDetails(p);
+            var pagination = new Pagination()
+            {
+                CurrentPage = p.PageNumber,
+                ItemsPerPage = p.PageSize,
+                TotalItems = _manager.ProductService.GetAllProducts(false).Count()
+            };
+            return View(new ProductListViewModel()
+            {
+                Products = products,
+                Pagination = pagination
+            });
         }
 
         //FromRoute routedan geleceğinin ve parametrenin adının bilgisini verir. Endpointlerde karşılık yaşanma ihtimali yüksektir.
