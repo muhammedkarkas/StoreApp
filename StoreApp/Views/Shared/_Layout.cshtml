@@ -55,15 +55,12 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-            @RenderBody()  
+            @RenderBody()
         </main>
     </div>
-
-    <footer class="border-top footer text-muted">
-        @RenderSection("Footer",required:false) <!--Bu alana istek doğrultusunda eklemeler yapılabilmektedir-->
-        <div class="container">
-            &copy; 2023 - StoreApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
+    <footer>
+        @RenderSection("Footer",false)
+        <partial name="_Footer" />
     </footer>
     @await RenderSectionAsync("Scripts",required:false)
     <!--Asenkron bir şekilde bu bölüm çalıştırılabilmektedir-->
