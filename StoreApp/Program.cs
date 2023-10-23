@@ -36,8 +36,9 @@ app.UseStaticFiles();
 app.UseSession();
 
 app.UseRouting();
-
 app.UseAuthorization();
+app.UseAuthentication();
+
 
 app.UseEndpoints(endpoints =>
 {
@@ -56,5 +57,4 @@ app.UseEndpoints(endpoints =>
 app.ConfigureAndCheckMigration();
 app.ConfigureDefaultAdminUser();
     
-
 app.Run();
