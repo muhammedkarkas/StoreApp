@@ -68,6 +68,7 @@ namespace StoreApp.Infrastructure.Extensions
             services.AddScoped<IProductService, ProductManager>();
             services.AddScoped<ICategoryService, CategoryManager>();
             services.AddScoped<IOrderService, OrderManager>();
+            services.AddScoped<IAuthService, AuthManager>();
         }
 
         //LowerCase Routing Extension 
@@ -79,5 +80,7 @@ namespace StoreApp.Infrastructure.Extensions
                 options.AppendTrailingSlash = false; //endpoint sonuna slah eklemek için true yapılmalı
             });
         }
+
+
     }
 }
